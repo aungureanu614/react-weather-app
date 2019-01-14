@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Card extends Component {
-  
-  render() {
-    const { day, high, low, icon } = this.props;
-    const iconImg = `http://openweathermap.org/img/w/${icon}.png`;
-      return (
-          <div className="weather-card">
-              <DayName day={day}/>
-              <DayImg icon={iconImg}/>
-              <HighLow high={high} low={low}/>
-          </div>
-      )
-  }
+const Card = ({day, high, low, icon}) => {
+  const iconImg = `http://openweathermap.org/img/w/${icon}.png`;
+  return <div className="weather-card">
+    <DayName day={day}/>
+    <DayImg icon={iconImg}/>
+    <HighLow high={high} low={low}/>
+  </div>
 }
 
 const DayName = ({day}) => (
