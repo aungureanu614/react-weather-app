@@ -16,34 +16,3 @@ code {
 .App {
   display: flex;
 }
-
-.weather-card {
-  /* border: 1px solid black; */
-  display: flex;
-  flex-direction: column;
-  width: 5%;
-  text-align: center;
-  background-color: lightblue;
-}
-
-.weather-img {
-  width: 60px;
-  align-self: center;
-  padding: 10px;
-}
-
-.day, .low {
-  color: gray;
-}
-
-.high {
-  padding-right: 5px;
-}
-
-.high-low {
-  font-size: 14px;
-}
-
-.high:after, .low:after {
-  content: "\00b0"
-}
