@@ -42,21 +42,21 @@ class InputForm extends Component {
     }
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const inputVal = document.getElementById('cityName').value;
     this.getData(inputVal)
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     e.preventDefault();
     e.target.value = '';
   }
 
   render() {
       return(
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input onClick={(e) => this.handleClick(e)} id="cityName" type="text"></input>
+        <form onSubmit={this.handleSubmit}>
+          <input onClick={this.handleClick} id="cityName" type="text"></input>
           <button>Search</button>
           {this.state.weatherData.map((data, index) => {
               return <Card key={index} weatherData={data} />
