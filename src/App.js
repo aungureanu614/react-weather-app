@@ -20,12 +20,12 @@ class App extends Component {
       3: 'Wed',
       4: 'Thu',
       5: 'Fri',
-      6: 'Sat'
+      6: 'Sat',
     }
 
-    return nextFiveDays.map((day) => {
-      const dt = new Date(day.dt_txt);
-      const dayOfWeek = dt.getDay();
+    return nextFiveDays.map(day => {
+      const dt = new Date(day.dt_txt)
+      const dayOfWeek = dt.getDay()
       const { main, weather } = day
       return { day: days[dayOfWeek], main, weather }
     })
@@ -33,12 +33,20 @@ class App extends Component {
 
   async getData(inputVal) {
     try {
-      const weather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`)
+      const weather = await fetch(
+        `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
+      )
       const json = await weather.json()
-      const nextFiveDays = [json.list[0], json.list[8], json.list[16], json.list[24], json.list[32]];
+      const nextFiveDays = [
+        json.list[0],
+        json.list[8],
+        json.list[16],
+        json.list[24],
+        json.list[32],
+      ]
       const weatherData = this.formatData(nextFiveDays)
       this.setState({ weatherData })
-    } catch(err) {
+    } catch (err) {
       throw new Error(err)
     }
   }
@@ -52,14 +60,12 @@ class App extends Component {
     return (
       <div>
         <Search onSubmit={this.submitCity} />
-        {
-          this.state.weatherData.map((data, index) => {
-            return <Card key={index} weatherData={data} />
-          })
-        }
+        {this.state.weatherData.map((data, index) => {
+          return <Card key={index} weatherData={data} />
+        })}
       </div>
     )
   }
 }
 
-export default App;
+export default App

@@ -1,15 +1,13 @@
 import React from 'react'
 import './styles.css'
 
-const DayName = ({day}) => (
-  <div className="day">{day}</div>
+const DayName = ({ day }) => <div className="day">{day}</div>
+
+const DayImg = ({ icon }) => (
+  <img className="weather-img" src={icon} alt="weather pic" />
 )
 
-const DayImg = ({icon}) => (
-  <img className="weather-img" src={icon} alt="weather pic"></img>
-)
-
-const HighLow = ({high, low}) => (
+const HighLow = ({ high, low }) => (
   <span className="high-low">
     <span className="high">{Math.round(high)}</span>
     <span className="low">{Math.round(low)}</span>
@@ -17,10 +15,10 @@ const HighLow = ({high, low}) => (
 )
 
 const Card = ({ weatherData }) => {
-  const { temp_max: high, temp_min: low } = weatherData.main;
-  const { icon } = weatherData.weather[0];
-  const { day } = weatherData;
-  const iconImg = `http://openweathermap.org/img/w/${icon}.png`;
+  const { temp_max: high, temp_min: low } = weatherData.main
+  const { icon } = weatherData.weather[0]
+  const { day } = weatherData
+  const iconImg = `http://openweathermap.org/img/w/${icon}.png`
 
   return (
     <div className="weather-card">
@@ -31,4 +29,4 @@ const Card = ({ weatherData }) => {
   )
 }
 
-export default Card;
+export default Card

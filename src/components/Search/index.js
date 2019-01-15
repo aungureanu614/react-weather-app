@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './styles.css'
 
 class InputForm extends Component {
@@ -13,11 +13,11 @@ class InputForm extends Component {
 
     return (
       <form onSubmit={onSubmit}>
-        <input value={value} type="text"></input>
+        <input value={value} type="text" />
         <button type="submit">Search</button>
       </form>
     )
   }
 }
 
-export default InputForm;
+export default InputForm
