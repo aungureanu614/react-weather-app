@@ -7,14 +7,13 @@ import appId from './appid'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.submitCity = this.submitCity.bind(this)
     this.state = {
       weatherData: [],
       searchTerm: '',
     }
   }
 
-  formatData(nextFiveDays) {
+  formatData = nextFiveDays => {
     const days = {
       0: 'Sun',
       1: 'Mon',
@@ -33,7 +32,7 @@ class App extends Component {
     })
   }
 
-  async getData(inputVal) {
+  getData = async inputVal => {
     try {
       const weather = await fetch(
         `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
@@ -53,14 +52,14 @@ class App extends Component {
     }
   }
 
-  submitCity(e) {
+  submitCity = e => {
     e.preventDefault()
     const inputVal = e.currentTarget.children[0].value
+    this.getData(inputVal)
     this.setState({
       weatherData: this.state.weatherData,
       searchTerm: inputVal,
     })
-    this.getData(inputVal)
   }
 
   render() {
