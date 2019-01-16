@@ -34,7 +34,7 @@ class App extends Component {
   async getData(inputVal) {
     try {
       const weather = await fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
+        `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=`
       )
       const json = await weather.json()
       const nextFiveDays = [
@@ -53,7 +53,7 @@ class App extends Component {
 
   submitCity(e) {
     e.preventDefault()
-    console.log(e)
+    console.log(e.currentTarget.children[0].value)
   }
 
   render() {
