@@ -9,7 +9,8 @@ class App extends Component {
     super(props)
     this.state = {
       weatherData: [],
-      searchTerm: '',
+      searchTerm: null,
+      error: null,
     }
   }
 
@@ -37,6 +38,13 @@ class App extends Component {
       const weather = await fetch(
         `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
       )
+      if (weather.status !== 200) {
+        return this.setState({
+          weatherData: [],
+          searchTerm: null,
+          error: 'Please type a valid city name or zip',
+        })
+      }
       const json = await weather.json()
       const nextFiveDays = [
         json.list[0],
@@ -56,18 +64,21 @@ class App extends Component {
     e.preventDefault()
     const inputVal = e.currentTarget.children[0].value
     this.getData(inputVal)
+    this.searchTerm = inputVal
     this.setState({
-      weatherData: this.state.weatherData,
+      weatherData: [],
       searchTerm: inputVal,
+      error: null,
     })
   }
 
   render() {
     const { searchTerm } = this.state
+    const { error } = this.state
     return (
       <div>
         <Search onSubmit={this.submitCity} />
-        <div>{searchTerm}</div>
+        <div>{searchTerm || error}</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
         })}
