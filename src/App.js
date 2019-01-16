@@ -9,8 +9,7 @@ class App extends Component {
     super(props)
     this.state = {
       weatherData: [],
-      searchTerm: null,
-      error: null,
+      display: null,
     }
   }
 
@@ -41,8 +40,7 @@ class App extends Component {
       if (weather.status !== 200) {
         return this.setState({
           weatherData: [],
-          searchTerm: null,
-          error: 'Please type a valid city name or zip',
+          display: 'Please type a valid city name or zip',
         })
       }
       const json = await weather.json()
@@ -55,30 +53,35 @@ class App extends Component {
       ]
       const weatherData = this.formatData(nextFiveDays)
       this.setState({ weatherData })
+      return weatherData
     } catch (err) {
       throw new Error(err)
     }
   }
 
-  submitCity = e => {
+  submitCity = async e => {
     e.preventDefault()
     const inputVal = e.currentTarget.children[0].value
-    this.getData(inputVal)
-    this.searchTerm = inputVal
-    this.setState({
+    const weatherData = await this.getData(inputVal);
+    if(weatherData) {
+      return this.setState({
+        weatherData,
+        display: inputVal,
+      })
+    }
+    return this.setState({
       weatherData: [],
-      searchTerm: inputVal,
-      error: null,
+      display: this.state.display,
     })
+   
   }
 
   render() {
-    const { searchTerm } = this.state
-    const { error } = this.state
+    const { display} = this.state
     return (
       <div>
         <Search onSubmit={this.submitCity} />
-        <div>{searchTerm || error}</div>
+        <div>{ display }</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
         })}
