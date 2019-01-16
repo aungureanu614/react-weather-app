@@ -1,9 +1,8 @@
-
 import React, { Component } from 'react'
 import Card from './Components/Card/index'
 import Search from './Components/Search/index'
-import './App.css';
-import appId from './appid';
+import './App.css'
+import appId from './appid'
 
 class App extends Component {
   constructor(props) {
@@ -11,9 +10,8 @@ class App extends Component {
     this.submitCity = this.submitCity.bind(this)
     this.state = {
       weatherData: [],
-      searchTerm: ''
+      searchTerm: '',
     }
-    // this.searchTerm = '';
   }
 
   formatData(nextFiveDays) {
@@ -60,20 +58,20 @@ class App extends Component {
     const inputVal = e.currentTarget.children[0].value
     this.setState({
       weatherData: this.state.weatherData,
-      searchTerm: inputVal
+      searchTerm: inputVal,
     })
     this.getData(inputVal)
   }
 
   render() {
-    const { searchTerm } = this.state;
+    const { searchTerm } = this.state
     return (
       <div>
         <Search onSubmit={this.submitCity} />
         <div>{searchTerm}</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
-        })}  
+        })}
       </div>
     )
   }
