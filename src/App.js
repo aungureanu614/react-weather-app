@@ -62,8 +62,8 @@ class App extends Component {
   submitCity = async e => {
     e.preventDefault()
     const inputVal = e.currentTarget.children[0].value
-    const weatherData = await this.getData(inputVal);
-    if(weatherData) {
+    const weatherData = await this.getData(inputVal)
+    if (weatherData) {
       return this.setState({
         weatherData,
         display: inputVal,
@@ -73,15 +73,14 @@ class App extends Component {
       weatherData: [],
       display: this.state.display,
     })
-   
   }
 
   render() {
-    const { display} = this.state
+    const { display } = this.state
     return (
       <div>
         <Search onSubmit={this.submitCity} />
-        <div>{ display }</div>
+        <div>{display}</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
         })}

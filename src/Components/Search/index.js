@@ -13,7 +13,7 @@ class InputForm extends Component {
     this.setState({ value: event.target.value })
   }
 
-  handleClick = e => {
+  handleClick = () => {
     this.setState({
       value: '',
     })
