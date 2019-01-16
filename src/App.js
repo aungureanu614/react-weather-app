@@ -11,7 +11,9 @@ class App extends Component {
     this.submitCity = this.submitCity.bind(this)
     this.state = {
       weatherData: [],
+      searchTerm: ''
     }
+    // this.searchTerm = '';
   }
 
   formatData(nextFiveDays) {
@@ -56,16 +58,22 @@ class App extends Component {
   submitCity(e) {
     e.preventDefault()
     const inputVal = e.currentTarget.children[0].value
+    this.setState({
+      weatherData: this.state.weatherData,
+      searchTerm: inputVal
+    })
     this.getData(inputVal)
   }
 
   render() {
+    const { searchTerm } = this.state;
     return (
       <div>
         <Search onSubmit={this.submitCity} />
+        <div>{searchTerm}</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
-        })}
+        })}  
       </div>
     )
   }

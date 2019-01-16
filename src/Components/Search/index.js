@@ -13,6 +13,12 @@ class InputForm extends Component {
     this.setState({ value: event.target.value });
   }
 
+  handleClick = (e) => {
+    this.setState({
+      value: ''
+    })
+  }
+
 
   render() {
     const { value } = this.state
@@ -20,7 +26,12 @@ class InputForm extends Component {
 
     return (
       <form onSubmit={onSubmit}>
-        <input type="text" value={value} onChange={this.handleChange} />
+        <input placeholder="Search by City or Zip" 
+              type="text" 
+              value={value} 
+              onChange={this.handleChange}
+              onClick={this.handleClick}
+        />
         <button type="submit">Search</button>
       </form>
     )
