@@ -21,10 +21,10 @@ class InputForm extends Component {
 
   render() {
     const { value } = this.state
-    const { onSubmit } = this.props
+    const { submitForm } = this.props
 
     return (
-      <form onSubmit={onSubmit}>
+      <form onSubmit={submitForm}>
         <input
           placeholder="Search by City or Zip"
           type="text"

@@ -9,7 +9,7 @@ class App extends Component {
     super(props)
     this.state = {
       weatherData: [],
-      display: null,
+      display: '',
     }
   }
 
@@ -38,9 +38,11 @@ class App extends Component {
         `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
       )
       if (weather.status !== 200) {
-        return this.setState({
-          weatherData: [],
-          display: 'Please type a valid city name or zip',
+        return this.setState(prevState => {
+          return {
+            ...prevState,
+            display: 'Please type a valid city name or zip',
+          }
         })
       }
       const json = await weather.json()
@@ -52,7 +54,9 @@ class App extends Component {
         json.list[32],
       ]
       const weatherData = this.formatData(nextFiveDays)
-      this.setState({ weatherData })
+      this.setState(prevState => {
+        return { ...prevState, weatherData }
+      })
       return weatherData
     } catch (err) {
       throw new Error(err)
@@ -64,14 +68,13 @@ class App extends Component {
     const inputVal = e.currentTarget.children[0].value
     const weatherData = await this.getData(inputVal)
     if (weatherData) {
-      return this.setState({
-        weatherData,
-        display: inputVal,
+      return this.setState(prevState => {
+        return { ...prevState, display: inputVal }
       })
     }
-    return this.setState({
-      weatherData: [],
-      display: this.state.display,
+
+    return this.setState(prevState => {
+      return { ...prevState, weatherData: [] }
     })
   }
 
@@ -79,7 +82,7 @@ class App extends Component {
     const { display } = this.state
     return (
       <div>
-        <Search onSubmit={this.submitCity} />
+        <Search submitForm={this.submitCity} />
         <div>{display}</div>
         {this.state.weatherData.map((data, index) => {
           return <Card key={index} weatherData={data} />
