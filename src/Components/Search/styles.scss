@@ -1,0 +1,23 @@
+.submit-form {
+  text-align: center;
+  position: relative;
+  top: 100px;
+
+  input {
+    width: 15%;
+    height: 30px;
+    outline: none;
+    font-size: 16px;
+    color: darkslategray;
+  }
+
+  button {
+    font-size: 16px;
+    height: 35px;
+    background-color: orange;
+    cursor: pointer;
+    border: none;
+    width: 40px;
+    color: white;
+    }
+}

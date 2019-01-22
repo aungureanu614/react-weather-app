@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Card from './Components/Card/index'
 import Search from './Components/Search/index'
-import './App.css'
+import './App.scss'
 import appId from './appid'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       weatherData: [],
       display: '',
@@ -81,7 +81,7 @@ class App extends Component {
   render() {
     const { display } = this.state
     return (
-      <div>
+      <div className="app-container">
         <Search submitForm={this.submitCity} />
         <div>{display}</div>
         {this.state.weatherData.map((data, index) => {

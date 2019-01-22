@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import './styles.css'
+import './styles.scss'
 
 class InputForm extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       value: '',
     }
@@ -24,7 +24,7 @@ class InputForm extends Component {
     const { submitForm } = this.props
 
     return (
-      <form onSubmit={submitForm}>
+      <form className="submit-form" onSubmit={submitForm}>
         <input
           placeholder="Search by City or Zip"
           type="text"
@@ -32,7 +32,7 @@ class InputForm extends Component {
           onChange={this.handleChange}
           onClick={this.handleClick}
         />
-        <button type="submit">Search</button>
+        <button type="submit"><i className="fas fa-search"></i></button>
       </form>
     )
   }
