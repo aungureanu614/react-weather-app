@@ -1,10 +1,9 @@
 .submit-form {
   text-align: center;
-  position: relative;
-  top: 100px;
 
-  input {
-    width: 15%;
+  input[type=text] {
+    padding: 2px 10px;
+    width: 25%;
     height: 30px;
     outline: none;
     font-size: 16px;
@@ -13,11 +12,13 @@
 
   button {
     font-size: 16px;
-    height: 35px;
+    height: 37px;
     background-color: orange;
     cursor: pointer;
     border: none;
     width: 40px;
     color: white;
-    }
+    margin-left: 2px;
+    border: 1px solid slategray;
+  }
 }

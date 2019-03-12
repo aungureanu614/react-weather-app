@@ -8,10 +8,10 @@ const DayImg = ({ icon }) => (
 )
 
 const HighLow = ({ high, low }) => (
-  <span className="high-low">
+  <div className="high-low">
     <span className="high">{Math.round(high)}</span>
     <span className="low">{Math.round(low)}</span>
-  </span>
+  </div>
 )
 
 const Card = ({ weatherData }) => {

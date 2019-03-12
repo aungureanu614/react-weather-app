@@ -82,11 +82,16 @@ class App extends Component {
     const { display } = this.state
     return (
       <div className="app-container">
-        <Search submitForm={this.submitCity} />
-        <div>{display}</div>
-        {this.state.weatherData.map((data, index) => {
-          return <Card key={index} weatherData={data} />
-        })}
+        <h2 className="app-container--title">Weekly Weather</h2>
+        <div className="app-container--body">
+          <Search submitForm={this.submitCity} />
+          <div className="display-city">{display}</div>
+          <div className="weather-card-container">
+            {this.state.weatherData.map((data, index) => {
+              return <Card key={index} weatherData={data} />
+            })}
+          </div>
+        </div>
       </div>
     )
   }
