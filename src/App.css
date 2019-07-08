@@ -47,8 +47,3 @@ input {
   transform: translateX(-50%);
   color: rgba(0, 0, 0, 0.5);
 }
-
-.plot-data {
-  width: 750px;
-  margin: 0 auto;
-}

@@ -21,9 +21,9 @@ class App extends Component {
     try {
       const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
       const data = await response.json();
-      console.log(data)
       const dates = [];
       const temps = [];
+      //TODO: handle case where user inputs an invalid city
       data.list.forEach((el) => {
         dates.push(el.dt_txt);
         temps.push(el.main.temp);
