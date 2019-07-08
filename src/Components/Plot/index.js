@@ -1,42 +1,23 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import { Plotly } from 'plotly';
+import Plot from 'react-plotly.js';
 
-
-class Plot extends Component {
-
-  componentDidMount() {
-    const { xData, yData, type } = this.props;
-
-    Plotly.plot('plot', [{
-      x: xData,
-      y: yData,
-      type: type
-    }], {
-        margin: {
-          t: 0, r: 0, l: 30
-        },
-        xaxis: {
-          gridcolor: 'transparent'
-        }
-      }, {
-        displayModeBar: false
-      });
-  }
-
+class Plotly extends Component {
 
   render() {
+    const { xData, yData, type } = this.props;
     return (
-      <div id="plot">
-        <div id="content"></div>
-      </div>
+      <Plot
+        data={[
+          {
+            x: xData,
+            y: yData,
+            type: type,
+          }]}
+        layout={{ title: 'Plot', xaxis: { gridcolor: 'transparent' }, margin: { t: 0, r: 0, l: 30} }}
+      />
     )
   }
 }
 
-// ReactDOM.render(
-//   ,
-//   document.getElementById('content')
-// );
-
-export default Plot;
+export default Plotly;
