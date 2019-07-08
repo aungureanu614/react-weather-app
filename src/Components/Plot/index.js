@@ -14,7 +14,10 @@ class Plotly extends Component {
             y: yData,
             type: type,
           }]}
-        layout={{ title: 'Plot', xaxis: { gridcolor: 'transparent' }, margin: { t: 0, r: 0, l: 30} }}
+        layout={{
+          title: 'Plot', xaxis: { gridcolor: 'transparent' }, yaxis: {
+            title: '°Celsius',
+          }, margin: { t: 0, r: 0, l: 30} }}
       />
     )
   }
