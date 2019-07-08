@@ -8,12 +8,13 @@ class Plotly extends Component {
     const { xData, yData, type, onPlotClick } = this.props;
     return (
       <Plot
-        data={[
-          {
+        data={
+          [{
             x: xData,
             y: yData,
             type: type,
-          }]}
+          }]
+        }
         layout={{
           title: 'Plot', xaxis: { gridcolor: 'transparent' }, yaxis: {
             title: '°Celsius',
