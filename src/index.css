@@ -9,41 +9,11 @@ body {
   font-size: 16px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-/* .app-container {
-  font-size: 16px;
-} */
-
-/* .weather-card {
-  display: flex;
-  flex-direction: column;
-  width: 5%;
-  text-align: center;
-  background-color: lightblue;
-}
-
-.weather-img {
-  width: 60px;
-  align-self: center;
-  padding: 10px;
-}
-
-.day, .low {
-  color: gray;
-}
-
-.high {
-  padding-right: 5px;
-}
-
-.high-low {
-  font-size: 14px;
-}
-
-.high:after, .low:after {
-  content: "\00b0"
-} */

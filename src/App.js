@@ -1,100 +1,64 @@
 import React, { Component } from 'react'
-import Card from './Components/Card/index'
-import Search from './Components/Search/index'
-import './App.scss'
-import appId from './appid'
+import './App.css';
+import apikey from './appid';
+import Plot from './Components/Plot';
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      weatherData: [],
-      display: '',
-    }
+  state = {
+    location: '',
+    data: {}
   }
 
-  formatData = nextFiveDays => {
-    const days = {
-      0: 'Sun',
-      1: 'Mon',
-      2: 'Tue',
-      3: 'Wed',
-      4: 'Thu',
-      5: 'Fri',
-      6: 'Sat',
-    }
-
-    return nextFiveDays.map(day => {
-      const dt = new Date(day.dt_txt)
-      const dayOfWeek = dt.getDay()
-      const { main, weather } = day
-      return { day: days[dayOfWeek], main, weather }
-    })
-  }
-
-  getData = async inputVal => {
+  fetchData = async (e) => {
+    e.preventDefault();
+    const { location } = this.state
     try {
-      const weather = await fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?q=${inputVal}&units=imperial&appid=${appId}`
-      )
-      if (weather.status !== 200) {
-        return this.setState(prevState => {
-          return {
-            ...prevState,
-            display: 'Please type a valid city name or zip',
-          }
-        })
-      }
-      const json = await weather.json()
-      const nextFiveDays = [
-        json.list[0],
-        json.list[8],
-        json.list[16],
-        json.list[24],
-        json.list[32],
-      ]
-      const weatherData = this.formatData(nextFiveDays)
-      this.setState(prevState => {
-        return { ...prevState, weatherData }
-      })
-      return weatherData
-    } catch (err) {
-      throw new Error(err)
+      const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
+      this.setState({
+        data: await response.json()
+      });
+    } catch(err) {
+      throw new Error(err);
     }
   }
 
-  submitCity = async e => {
-    e.preventDefault()
-    const inputVal = e.currentTarget.children[0].value
-    const weatherData = await this.getData(inputVal)
-    if (weatherData) {
-      return this.setState(prevState => {
-        return { ...prevState, display: inputVal }
-      })
-    }
-
-    return this.setState(prevState => {
-      return { ...prevState, weatherData: [] }
+  changeLocation = (e) => {
+    this.setState({
+      location: e.target.value
     })
   }
 
   render() {
-    const { display } = this.state
+    const { location } = this.state;
+    const { list } = this.state.data;
+    let currentTemp = "Specify a location"
+    if(list) {
+      currentTemp = list[0].main.temp;
+    }
     return (
-      <div className="app-container">
-        <h2 className="app-container--title">Weekly Weather</h2>
-        <div className="app-container--body">
-          <Search submitForm={this.submitCity} />
-          <div className="display-city">{display}</div>
-          <div className="weather-card-container">
-            {this.state.weatherData.map((data, index) => {
-              return <Card key={index} weatherData={data} />
-            })}
-          </div>
-        </div>
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label> I want to know the weather for  
+            <input 
+              placeholder="City, Country" 
+              type="text" 
+              value={location}
+              onChange={this.changeLocation}
+              />
+          </label>
+        </form>
+        <p className="temp-wrapper">
+          <span className="temp">{currentTemp}</span>
+          <span className="temp-symbol">°C</span>
+        </p>
+        <Plot
+          xData={[1, 2, 3, 4, 5]}
+          yData={[1, 4, 9, 16, 25]}
+          type='scatter' />
       </div>
     )
   }
 }
 
-export default App
+export default App;
