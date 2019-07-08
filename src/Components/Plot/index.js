@@ -5,7 +5,7 @@ import Plot from 'react-plotly.js';
 class Plotly extends Component {
 
   render() {
-    const { xData, yData, type } = this.props;
+    const { xData, yData, type, onPlotClick } = this.props;
     return (
       <Plot
         data={[
@@ -18,6 +18,7 @@ class Plotly extends Component {
           title: 'Plot', xaxis: { gridcolor: 'transparent' }, yaxis: {
             title: '°Celsius',
           }, margin: { t: 0, r: 0, l: 30} }}
+        onClick={onPlotClick}
       />
     )
   }

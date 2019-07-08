@@ -8,7 +8,11 @@ class App extends Component {
     location: '',
     data: {},
     dates: [],
-    temps: []
+    temps: [],
+    selected: {
+      date: '',
+      temp: null
+    }
   }
 
   fetchData = async (e) => {
@@ -40,8 +44,23 @@ class App extends Component {
     })
   }
 
+  onPlotClick = (data) => {
+    console.log("my data is...", data)
+    if(data.points) {
+      const { x, y } = data.points[0];
+      this.setState({
+        selected: {
+          date: x,
+          temp: y
+        }
+      });
+    }
+    console.log(this.state)
+  }
+
   render() {
     const { location, dates, temps } = this.state;
+    const { temp, date } = this.state.selected;
     const { list } = this.state.data;
     let currentTemp = "Specify a location"
     if(list) {
@@ -60,17 +79,27 @@ class App extends Component {
               />
           </label>
         </form>
-        <p className="temp-wrapper">
-          <span className="temp">{currentTemp}</span>
-          <span className="temp-symbol">°C</span>
-        </p>
-        {dates.length !== 0 &&
-          <div className="plot-data"> 
-          <Plot
-            xData={dates}
-            yData={temps}
-            type='scatter' />
-          </div>
+        {
+          list && (
+            <div className="wrapper">
+              <p className="temp-wrapper">
+                <span className="temp">
+                  {temp ? temp : currentTemp}
+                </span>
+                <span className="temp-symbol">°C</span>
+                <span className="temp-date">
+                  {temp && date}
+                </span>
+              </p>
+              <h2>Forecast</h2>
+              <Plot
+                xData={dates}
+                yData={temps}
+                onPlotClick={this.onPlotClick}
+                type="scatter"
+              />
+            </div>
+          )
         }
       </div>
     )
