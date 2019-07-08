@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import { Plotly } from 'plotly';
-var Plotly = require('plotly')('aungureanu', 'EqbdMrruEtiblI7ee76m');
+
 
 class Plot extends Component {
 
