@@ -47,3 +47,9 @@ input {
   transform: translateX(-50%);
   color: rgba(0, 0, 0, 0.5);
 }
+
+.not-found-text {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+}

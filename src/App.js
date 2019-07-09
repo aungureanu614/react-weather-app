@@ -12,27 +12,45 @@ class App extends Component {
     selected: {
       date: '',
       temp: null
-    }
+    },
+    notFound: '',
   }
 
   fetchData = async (e) => {
     e.preventDefault();
     const { location } = this.state
+    this.setState({
+      location,
+      data: {},
+      dates: [],
+      temps: [],
+      selected: {
+        date: '',
+        temp: null
+      },
+      notFound: ''
+    })
+
     try {
       const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
       const data = await response.json();
-      const dates = [];
-      const temps = [];
-      //TODO: handle case where user inputs an invalid city
-      data.list.forEach((el) => {
-        dates.push(el.dt_txt);
-        temps.push(el.main.temp);
-      })
-      this.setState({
-        data,
-        dates,
-        temps
-      });
+      if(data.cod === '404') {
+        this.setState({
+          notFound: "City not found, please try again"
+        })
+      } else {
+        const dates = [];
+        const temps = [];
+        data.list.forEach((item) => {
+          dates.push(item.dt_txt);
+          temps.push(item.main.temp);
+        })
+        this.setState({
+          data,
+          dates,
+          temps
+        });
+      }
     } catch(err) {
       throw new Error(err);
     }
@@ -59,7 +77,7 @@ class App extends Component {
   }
 
   render() {
-    const { location, dates, temps } = this.state;
+    const { location, dates, temps, notFound } = this.state;
     const { temp, date } = this.state.selected;
     const { list } = this.state.data;
     let currentTemp = "Specify a location"
@@ -80,7 +98,7 @@ class App extends Component {
           </label>
         </form>
         {
-          list && (
+          list ? (
             <div className="wrapper">
               <p className="temp-wrapper">
                 <span className="temp">
@@ -99,7 +117,7 @@ class App extends Component {
                 type="scatter"
               />
             </div>
-          )
+          ) : <div className="not-found-text">{notFound}</div>
         }
       </div>
     )
