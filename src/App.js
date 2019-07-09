@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './App.css';
 import apikey from './appid';
 import Plot from './Components/Plot';
+import { connect } from 'react-redux';
+import changeLocation from './actions'
 
 class App extends Component {
   state = {
@@ -10,8 +12,8 @@ class App extends Component {
     dates: [],
     temps: [],
     selected: {
-      date: '',
-      temp: null
+      // date: '',
+      // temp: null
     },
     notFound: '',
   }
@@ -19,17 +21,17 @@ class App extends Component {
   fetchData = async (e) => {
     e.preventDefault();
     const { location } = this.state
-    this.setState({
-      location,
-      data: {},
-      dates: [],
-      temps: [],
-      selected: {
-        date: '',
-        temp: null
-      },
-      notFound: ''
-    })
+    // this.setState({
+    //   location,
+    //   data: {},
+    //   dates: [],
+    //   temps: [],
+    //   selected: {
+    //     date: '',
+    //     temp: null
+    //   },
+    //   notFound: ''
+    // })
 
     try {
       const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
@@ -45,10 +47,20 @@ class App extends Component {
           dates.push(item.dt_txt);
           temps.push(item.main.temp);
         })
+        // this.setState({
+        //   data,
+        //   dates,
+        //   temps
+        // });
         this.setState({
           data,
           dates,
-          temps
+          temps,
+          selected: {
+            date: '',
+            temp: null
+          },
+          notFound: ''
         });
       }
     } catch(err) {
@@ -57,13 +69,10 @@ class App extends Component {
   }
 
   changeLocation = (e) => {
-    this.setState({
-      location: e.target.value
-    })
+    this.props.dispatch(changeLocation(e.target.value));
   }
 
   onPlotClick = (data) => {
-    console.log("my data is...", data)
     if(data.points) {
       const { x, y } = data.points[0];
       this.setState({
@@ -123,4 +132,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    location: state.location
+  }
+}
+
+export default connect(mapStateToProps)(App);
