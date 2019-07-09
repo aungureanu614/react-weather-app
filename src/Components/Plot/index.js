@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 import Plot from 'react-plotly.js';
 
 class Plotly extends Component {
