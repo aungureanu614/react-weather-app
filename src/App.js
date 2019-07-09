@@ -7,31 +7,16 @@ import changeLocation from './actions'
 
 class App extends Component {
   state = {
-    location: '',
     data: {},
     dates: [],
     temps: [],
-    selected: {
-      // date: '',
-      // temp: null
-    },
+    selected: {},
     notFound: '',
   }
 
   fetchData = async (e) => {
     e.preventDefault();
-    const { location } = this.state
-    // this.setState({
-    //   location,
-    //   data: {},
-    //   dates: [],
-    //   temps: [],
-    //   selected: {
-    //     date: '',
-    //     temp: null
-    //   },
-    //   notFound: ''
-    // })
+    const { location } = this.props;
 
     try {
       const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
@@ -47,11 +32,6 @@ class App extends Component {
           dates.push(item.dt_txt);
           temps.push(item.main.temp);
         })
-        // this.setState({
-        //   data,
-        //   dates,
-        //   temps
-        // });
         this.setState({
           data,
           dates,
@@ -85,9 +65,10 @@ class App extends Component {
   }
 
   render() {
-    const { location, dates, temps, notFound } = this.state;
+    const { dates, temps, notFound } = this.state;
     const { temp, date } = this.state.selected;
     const { list } = this.state.data;
+    const { location } = this.props;
     let currentTemp = "Specify a location"
     if(list) {
       currentTemp = list[0].main.temp;
@@ -98,7 +79,7 @@ class App extends Component {
         <form onSubmit={this.fetchData}>
           <label> I want to know the weather for  
             <input 
-              placeholder="City, Country" 
+              placeholder="City, Country"
               type="text" 
               value={location}
               onChange={this.changeLocation}
@@ -131,6 +112,8 @@ class App extends Component {
     )
   }
 }
+
+// export default App;
 
 const mapStateToProps = (state) => {
   return {
