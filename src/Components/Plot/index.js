@@ -10,10 +10,13 @@ class Plot extends Component {
       type
     }], {
         margin: {
-          t: 0, r: 0, l: 30
+          t: 0, r: 50, l: 50
         },
         xaxis: {
           gridcolor: 'transparent'
+        },
+        yaxis: {
+          title: '°Celsius'
         }
       }, {
         displayModeBar: false
