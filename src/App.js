@@ -3,7 +3,7 @@ import './App.css';
 import apikey from './appid';
 import Plot from './Components/Plot';
 import { connect } from 'react-redux';
-import { changeLocation, getSelected, fetchData } from './actions'
+import { changeLocation, getSelectedDate, getSelectedTemp, fetchData } from './actions'
 
 class App extends Component {
 
@@ -20,12 +20,9 @@ class App extends Component {
 
   onPlotClick = (data) => {
     if(data.points) {
-      const { x, y } = data.points[0];
-      const selected = {
-        date: x,
-        temp: y
-      }
-      this.props.dispatch(getSelected(selected))
+      const { x: date, y: temp } = data.points[0];
+      this.props.dispatch(getSelectedTemp(temp));
+      this.props.dispatch(getSelectedDate(date));
     }
   }
 
@@ -78,14 +75,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    location: state.location,
-    data: state.data, 
-    dates: state.dates,
-    temps: state.temps, 
-    selected: state.selected,
-    notFound: state.notFound
-  }
+  return state;
 }
 
 export default connect(mapStateToProps)(App);

@@ -26,10 +26,17 @@ const getTemps = (temps) => {
   }
 }
 
-const getSelected = (selected) => {
+const getSelectedDate = (date) => {
   return {
-    type: 'GET_SELECTED',
-    selected
+    type: 'GET_SELECTED_DATE',
+    date
+  }
+}
+
+const getSelectedTemp = (temp) => {
+  return {
+    type: 'GET_SELECTED_TEMP',
+    temp
   }
 }
 
@@ -59,11 +66,8 @@ const fetchData = (url) => {
         dispatch(getData(data));
         dispatch(getDates(dates));
         dispatch(getTemps(temps));
-        const selected = {
-          date: '',
-          temp: null
-        }
-        dispatch(getSelected(selected));
+        dispatch(getSelectedDate(''));
+        dispatch(getSelectedTemp(null));
       }
     } catch (err) {
       throw new Error(err);
@@ -71,4 +75,4 @@ const fetchData = (url) => {
   }
 }
 
-export { changeLocation, getData, getDates, getTemps, notFound, getSelected, fetchData };
+export { changeLocation, getData, getDates, getTemps, notFound, getSelectedDate, getSelectedTemp, fetchData };
