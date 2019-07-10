@@ -1,5 +1,3 @@
-// import { fromJS } from 'immutable';
-
 const initialState = {
   location: '',
   data: {},
@@ -15,7 +13,6 @@ const initialState = {
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'CHANGE_LOCATION':
-      // return state.set('location', action.location);
       return Object.assign({}, state, {
         location: action.location
       });
