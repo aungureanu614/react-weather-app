@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import { changeLocation, getData, getDates, getTemps, notFound, getSelected } from './actions'
 
 class App extends Component {
-  state = {
-    // selected: {},
-  }
 
   fetchData = async (e) => {
     e.preventDefault();
