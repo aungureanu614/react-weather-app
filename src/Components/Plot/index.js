@@ -1,31 +1,43 @@
 import React, { Component } from 'react';
-import Plot from 'react-plotly.js';
+// import Plot from 'react-plotly.js';
+import Plotly from 'plotly.js-dist';
 
-class Plotly extends Component {
+class Plot extends Component {
+  drawPlot = () => {
+    const { xData, yData, type, onPlotClick } = this.props;
+    Plotly.newPlot('plot', [{
+      x: xData,
+      y: yData,
+      type
+    }], {
+        margin: {
+          t: 0, r: 0, l: 30
+        },
+        xaxis: {
+          gridcolor: 'transparent'
+        }
+      }, {
+        displayModeBar: false
+      });
+
+    document.getElementById('plot').on(
+      'plotly_click', onPlotClick);
+  }
+
+  componentDidMount() {
+    this.drawPlot();
+  }
+
+  componentDidUpdate() {
+    this.drawPlot();
+  }
 
   render() {
-    const { xData, yData, type, onPlotClick } = this.props;
+    console.log('RENDER PLOT');
     return (
-      <Plot
-        data={
-          [{
-            x: xData,
-            y: yData,
-            type: type,
-          }]
-        }
-        layout={
-          {
-            title: 'Plot', 
-            xaxis: { gridcolor: 'transparent' }, 
-            yaxis: { title: '°Celsius' }, 
-            margin: { t: 0, r: 50, l: 50} 
-          }
-        }
-        onClick={onPlotClick}
-      />
-    )
+      <div id="plot"></div>
+    );
   }
 }
 
-export default Plotly;
+export default Plot;
