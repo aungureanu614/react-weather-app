@@ -32,6 +32,7 @@ class Plot extends Component {
   }
 
   render() {
+    //TODO: don't re-render component unless x or y change
     console.log('RENDER PLOT');
     return (
       <div id="plot"></div>
