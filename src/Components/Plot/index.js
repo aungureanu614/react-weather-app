@@ -19,7 +19,7 @@ class Plotly extends Component {
             title: 'Plot', 
             xaxis: { gridcolor: 'transparent' }, 
             yaxis: { title: '°Celsius' }, 
-            margin: { t: 0, r: 0, l: 30} 
+            margin: { t: 0, r: 50, l: 50} 
           }
         }
         onClick={onPlotClick}
