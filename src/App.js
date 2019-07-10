@@ -3,7 +3,7 @@ import './App.css';
 import apikey from './appid';
 import Plot from './Components/Plot';
 import { connect } from 'react-redux';
-import { changeLocation, getData, getDates, getTemps, notFound, getSelected, fetchData } from './actions'
+import { changeLocation, getSelected, fetchData } from './actions'
 
 class App extends Component {
 
@@ -12,27 +12,6 @@ class App extends Component {
     const { location } = this.props;
     const url = `http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`;
     this.props.dispatch(fetchData(url));
-    // const { location } = this.props;
-
-    // try {
-    //   const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
-    //   const data = await response.json();
-    //   if(data.cod === '404') {
-    //     this.props.dispatch(notFound('City not found, please try again'))
-    //   } else {
-    //     const dates = [];
-    //     const temps = [];
-    //     data.list.forEach((item) => {
-    //       dates.push(item.dt_txt);
-    //       temps.push(item.main.temp);
-    //     });
-    //     this.props.dispatch(getData(data));
-    //     this.props.dispatch(getDates(dates));
-    //     this.props.dispatch(getTemps(temps));
-    //   }
-    // } catch(err) {
-    //   throw new Error(err);
-    // }
   }
 
   changeLocation = (e) => {
