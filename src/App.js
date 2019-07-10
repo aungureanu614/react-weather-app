@@ -3,15 +3,11 @@ import './App.css';
 import apikey from './appid';
 import Plot from './Components/Plot';
 import { connect } from 'react-redux';
-import changeLocation from './actions'
+import { changeLocation, getData, getDates, getTemps, notFound, getSelected } from './actions'
 
 class App extends Component {
   state = {
-    data: {},
-    dates: [],
-    temps: [],
-    selected: {},
-    notFound: '',
+    // selected: {},
   }
 
   fetchData = async (e) => {
@@ -22,26 +18,17 @@ class App extends Component {
       const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`);
       const data = await response.json();
       if(data.cod === '404') {
-        this.setState({
-          notFound: "City not found, please try again"
-        })
+        this.props.dispatch(notFound('City not found, please try again'))
       } else {
         const dates = [];
         const temps = [];
         data.list.forEach((item) => {
           dates.push(item.dt_txt);
           temps.push(item.main.temp);
-        })
-        this.setState({
-          data,
-          dates,
-          temps,
-          selected: {
-            date: '',
-            temp: null
-          },
-          notFound: ''
         });
+        this.props.dispatch(getData(data));
+        this.props.dispatch(getDates(dates));
+        this.props.dispatch(getTemps(temps));
       }
     } catch(err) {
       throw new Error(err);
@@ -55,20 +42,18 @@ class App extends Component {
   onPlotClick = (data) => {
     if(data.points) {
       const { x, y } = data.points[0];
-      this.setState({
-        selected: {
-          date: x,
-          temp: y
-        }
-      });
+      const selected = {
+        date: x,
+        temp: y
+      }
+      this.props.dispatch(getSelected(selected))
     }
   }
 
   render() {
-    const { dates, temps, notFound } = this.state;
-    const { temp, date } = this.state.selected;
-    const { list } = this.state.data;
-    const { location } = this.props;
+    const { temp, date } = this.props.selected;
+    const { list } = this.props.data;
+    const { location, dates, temps, notFound } = this.props;
     let currentTemp = "Specify a location"
     if(list) {
       currentTemp = list[0].main.temp;
@@ -115,7 +100,12 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.location
+    location: state.location,
+    data: state.data, 
+    dates: state.dates,
+    temps: state.temps, 
+    selected: state.selected,
+    notFound: state.notFound
   }
 }
 
