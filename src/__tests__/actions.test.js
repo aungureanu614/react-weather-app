@@ -12,7 +12,7 @@ describe('actions', () => {
     });
   });
 
-  describe('setSelectedDate', () => {
+  describe('getSelectedDate', () => {
     it('should have a type of GET_SELECTED_DATE', () => {
       expect(getSelectedDate().type).toEqual('GET_SELECTED_DATE');
      });
@@ -23,7 +23,7 @@ describe('actions', () => {
     });
   });
 
-  describe('setSelectedTemp', () => {
+  describe('getSelectedTemp', () => {
     it('should have a type of GET_SELECTED_TEMP', () => {
       expect(getSelectedTemp().type).toEqual('GET_SELECTED_TEMP');
      });
@@ -34,5 +34,5 @@ describe('actions', () => {
      });
   });
 
-  
+
 })
