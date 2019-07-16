@@ -53,7 +53,6 @@ const fetchData = (url) => {
       const response = await fetch(url);
       const data = await response.json();
       if (data.cod === '404') {
-        console.log('here??')
         dispatch(notFound('City not found, please try again'));
         dispatch(getData({}));
       } else {
