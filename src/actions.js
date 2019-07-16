@@ -62,7 +62,6 @@ const fetchData = (url) => {
           dates.push(item.dt_txt);
           temps.push(item.main.temp);
         });
-        console.log(dates, temps)
         dispatch(getData(data));
         dispatch(getDates(dates));
         dispatch(getTemps(temps));
