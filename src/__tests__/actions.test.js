@@ -1,4 +1,4 @@
-import { changeLocation, getSelectedDate, getSelectedTemp } from '../actions';
+import { changeLocation, getSelectedDate, getSelectedTemp, notFound, getData, getDates, getTemps } from '../actions';
 
 describe('actions', () => {
   describe('changeLocation', () => {
@@ -7,8 +7,41 @@ describe('actions', () => {
     });
 
     it('should pass on the location we pass in', () => {
-      var location = 'Vienna, Austria';
+      const location = 'Vienna, Austria';
       expect(changeLocation(location).location).toEqual(location);
+    });
+  });
+  
+  describe('getData', () => {
+    it('should have a type of "GET_DATA"', () => {
+      expect(getData().type).toEqual('GET_DATA');
+    });
+
+    it('should pass on the data we pass in', () => {
+      const data = { cod: "200", message: 0.0141, cnt: 40, list: Array(40), city: {} }
+      expect(getData(data).data).toEqual(data);
+    });
+  });
+  
+  describe('getDates', () => {
+    it('should have a type of "GET_DATES"', () => {
+      expect(getDates().type).toEqual('GET_DATES');
+    });
+
+    it('should pass on the dates we pass in', () => {
+      const dates = ["2019-07-17 00:00:00", "2019-07-17 03:00:00"]
+      expect(getDates(dates).dates).toEqual(dates);
+    });
+  });
+
+  describe('getTemps', () => {
+    it('should have a type of "GET_TEMPS"', () => {
+      expect(getTemps().type).toEqual('GET_TEMPS');
+    });
+
+    it('should pass on the temps we pass in', () => {
+      const temps = [28.18, 24.78]
+      expect(getTemps(temps).temps).toEqual(temps);
     });
   });
 
@@ -18,7 +51,7 @@ describe('actions', () => {
      });
 
     it('should pass on the date we pass in', () => { 
-      var date = '2016-01-01';
+      const date = '2016-01-01';
       expect(getSelectedDate(date).date).toEqual(date);
     });
   });
@@ -29,10 +62,19 @@ describe('actions', () => {
      });
 
     it('should pass on the temp we pass in', () => {
-      var temp = '31';
+      const temp = '31';
       expect(getSelectedTemp(temp).temp).toEqual(temp);
      });
   });
 
+  describe('notFound', () => {
+    it('should have a type "NOT_FOUND', () => {
+      expect(notFound().type).toEqual('NOT_FOUND');
+    });
 
-})
+    it('should pass on not found text', () => {
+      const text = 'city not found';
+      expect(notFound(text).notFound).toEqual(text);
+    });
+  });
+});
