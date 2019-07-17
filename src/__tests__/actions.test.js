@@ -1,4 +1,12 @@
-import { changeLocation, getSelectedDate, getSelectedTemp, notFound, getData, getDates, getTemps } from '../actions';
+import { 
+  changeLocation, 
+  getSelectedDate, 
+  getSelectedTemp, 
+  notFound, 
+  getData, 
+  getDates, 
+  getTemps 
+} from '../actions';
 
 describe('actions', () => {
   describe('changeLocation', () => {
