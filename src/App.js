@@ -5,9 +5,9 @@ import Plot from './Components/Plot';
 import { connect } from 'react-redux';
 import { changeLocation, getSelectedDate, getSelectedTemp, fetchData } from './actions'
 
-class App extends Component {
+export class App extends Component {
 
-  fetchData = async (e) => {
+  fetchData = (e) => {
     e.preventDefault();
     const { location } = this.props;
     const url = `http://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&APPID=${apikey}&units=metric`;
@@ -38,7 +38,7 @@ class App extends Component {
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label> I want to know the weather for  
+          <label> I want to know the weather for
             <input 
               placeholder="City, Country"
               type="text" 

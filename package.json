@@ -32,6 +32,7 @@
     "ify-loader": "^1.1.0",
     "immutable": "^4.0.0-rc.12",
     "jest": "23.6.0",
+    "jest-canvas-mock": "^2.1.0",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
     "mini-css-extract-plugin": "0.4.3",
@@ -79,7 +80,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "react-test-renderer": "^16.8.6"
   },
   "jest": {
     "collectCoverageFrom": [
