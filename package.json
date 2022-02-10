@@ -36,7 +36,7 @@
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
     "mini-css-extract-plugin": "0.4.3",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "plotly": "^1.0.6",
     "plotly.js": "^1.48.3",
